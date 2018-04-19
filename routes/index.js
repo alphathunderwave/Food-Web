@@ -17,7 +17,7 @@ router.get("/about", function(req, res){
 
 
 router.get("/register",function(req,res){
-   res.render("register",{page:'register'}); 
+   res.render("register",{page:'register'});
 });
 
 // Handle Sign Up Logic
@@ -31,7 +31,7 @@ router.post("/register", function(req, res){
         }
         passport.authenticate("local")(req, res, function(){
            req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
-           res.redirect("/dishes"); 
+           res.redirect("/dishes");
         });
     });
 });
@@ -39,7 +39,7 @@ router.post("/register", function(req, res){
 //show Login Form
 
 router.get("/login", function(req, res) {
-   res.render("login",{page:'login'}); 
+   res.render("login",{page:'login'});
 });
 
 //Handling Logic
@@ -50,7 +50,24 @@ router.post("/login", passport.authenticate("local",
     successFlash: "Welcome",
     failureFlash: "Invalid Username or Password"
 }),function(req,res){
-    
+
+});
+
+//show Forgot Form
+
+router.get("/forgot", function(req, res) {
+   res.render("forgot",{page:'forgot'});
+});
+
+//Handling Logic
+router.post("/forgot", passport.authenticate("local",
+{
+    successRedirect:"/login",
+    failureRedirect:"/forgot",
+    successFlash: "Welcome",
+    failureFlash: "Invalid Email"
+}),function(req,res){
+
 });
 
 //LOGOUT ROUTE
